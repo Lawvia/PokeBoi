@@ -1,6 +1,6 @@
 import React from 'react';
 
-import { makeStyles, useTheme  } from '@material-ui/core/styles';
+import { makeStyles } from '@material-ui/core/styles';
 import BottomNavigation from '@material-ui/core/BottomNavigation';
 import BottomNavigationAction from '@material-ui/core/BottomNavigationAction';
 import RestoreIcon from '@material-ui/icons/Book';
@@ -12,6 +12,17 @@ import Home from './pages/Home';
 import Party from './pages/Party';
 
 const useStyles = makeStyles((theme) => ({
+  app: {
+    display: 'flex',
+    flexDirection: 'column',
+  },
+  content_holder: {
+    flex: 1,
+    overflowY: 'auto',
+    minHeight: '100vh',
+    marginBottom: '70px',
+    clear: 'both',
+  },
   root: {
     width: '100%',
     position: 'fixed',
@@ -21,7 +32,7 @@ const useStyles = makeStyles((theme) => ({
   },
   actionItemStyles: {
     "&$selected": {
-      color: "#f39c12"
+      color: "#1abc9c"
     }
   },
   selected: {}
@@ -41,7 +52,13 @@ export default function App() {
 
   return(
     <Router>
-      
+      <div className={classes.app}>
+        <div className={classes.content_holder}>
+        <Switch>
+          <Route exact path="/" component={ Home } />
+          <Route path="/party" component={ Party } />
+        </Switch>
+        </div>
         <BottomNavigation 
             value={value} 
             onChange={handleChange} 
@@ -63,12 +80,7 @@ export default function App() {
             }}
             label="Party" value="/party" icon={<FavoriteIcon />} />
         </BottomNavigation>
-
-        <Switch>
-          <Route exact path="/" component={ Home } />
-          <Route path="/party" component={ Party } />
-        </Switch>
-      
+        </div>
     </Router>
   );
 }
