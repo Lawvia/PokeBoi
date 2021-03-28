@@ -1,4 +1,5 @@
 import React from 'react';
+import { PokemonContext } from '../partial/PokemonContext';
 import { makeStyles } from '@material-ui/core/styles';
 import AppBar from '@material-ui/core/AppBar';
 import Toolbar from '@material-ui/core/Toolbar';
@@ -18,9 +19,10 @@ import List from '@material-ui/core/List';
 import ListItem from '@material-ui/core/ListItem';
 import ListItemIcon from '@material-ui/core/ListItemIcon';
 import ListItemText from '@material-ui/core/ListItemText';
+import Button from '@material-ui/core/Button';
 
 import { gql, useQuery } from '@apollo/client';
-import { Link, useParams, useHistory } from "react-router-dom";
+import { useParams, useHistory } from "react-router-dom";
 
 const GET_POKEMONS = gql`
 query pokemon($name: String!) {
@@ -65,7 +67,10 @@ const useStyles = makeStyles(theme => ({
   card: {
     // maxWidth: 345,
     margin: "10px",
-    minWidth: 250
+    minWidth: 330,
+    [theme.breakpoints.up('lg')]: {
+      width: '100vh',
+    },
   },
   content_holder: {
     flex: 1,
@@ -91,10 +96,13 @@ function Details() {
   const classes = useStyles();
   let { name } = useParams();
   // const [pokedetail, setDetail] = React.useState(name);
+  const { capture, capturedPokemons } = React.useContext(PokemonContext);
 
   const detailParam = {
     name: name
   }
+
+  let arrPoke = {}
 
   var objDetail = FetchPokemonDetails(detailParam);
   var isAvail = false;
@@ -102,6 +110,11 @@ function Details() {
   if (objDetail) {
     isAvail = true;
     var value = objDetail.pokemon;
+    arrPoke = {
+      name: value.name,
+      image: value.sprites.front_default,
+      nickname: "a"+ (100 + Math.random() * (400 - 100)),
+    }
   }
 
   var upperCase = name.charAt(0).toUpperCase() + name.slice(1)
@@ -114,6 +127,14 @@ function Details() {
             <IconButton edge="start" className={classes.menuButton} color="inherit" aria-label="back" onClick={() => history.goBack()}>
               <ArrowBackIcon />
             </IconButton>
+            <Typography variant="h6" className={classes.root}>
+            </Typography>
+            {isAvail ? (
+              <Button variant="outlined" color="inherit" onClick={capture(arrPoke)}>Catch!</Button>
+            ):(
+              <Button variant="outlined" color="inherit">...</Button>
+            )}
+            
           </Toolbar>
         </AppBar>
         

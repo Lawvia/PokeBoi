@@ -1,5 +1,6 @@
 import { useReducer } from 'react';
-import { CAPTURE, RELEASE, ADD_POKEMON, ADD_POKEMONS } from './actions';
+import store from 'store';
+import { KEY_USER_DATA, CAPTURE, RELEASE, ADD_POKEMON, ADD_POKEMONS } from './actions';
 
 const getCapturedPokemons = (capturedPokemons, releasedPokemon) =>
   capturedPokemons.filter(pokemon => pokemon !== releasedPokemon)
@@ -30,6 +31,19 @@ const addPokemons = (pokemons, state) => ({
 const pokemonReducer = (state, action) => {
   switch (action.type) {
     case CAPTURE:
+      // store.clearAll();
+      console.log("capture", action, state)
+      var user = store.get(KEY_USER_DATA);
+      console.log("data session ",user);
+      if (!user){ //first time user
+        var arr = [];
+        arr.push(action.pokemon);
+        console.log("uwa", arr)
+        store.set(KEY_USER_DATA, arr);
+      }else{
+        user.push(action.pokemon)
+        store.set(KEY_USER_DATA, user);
+      }
       return capturePokemon(action.pokemon, state);
     case RELEASE:
       return releasePokemon(action.pokemon, state);
