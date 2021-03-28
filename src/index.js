@@ -6,6 +6,7 @@ import * as serviceWorker from './serviceWorker';
 import { BrowserRouter } from 'react-router-dom';
 import { ApolloClient, InMemoryCache } from '@apollo/client';
 import { ApolloProvider } from '@apollo/client';
+import { PokemonProvider } from './partial/PokemonContext';
 
 const client = new ApolloClient({
   uri: 'https://graphql-pokeapi.vercel.app/api/graphql',
@@ -15,7 +16,9 @@ const client = new ApolloClient({
 
 ReactDOM.render(<BrowserRouter>
   <ApolloProvider client={client}>
-  <App />
+    <PokemonProvider>
+      <App />
+    </PokemonProvider>
   </ApolloProvider>
 </BrowserRouter>, document.getElementById('root'));
 

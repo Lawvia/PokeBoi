@@ -8,7 +8,9 @@ import FavoriteIcon from '@material-ui/icons/Favorite';
 
 import { BrowserRouter as Router, Route, Switch, Link } from 'react-router-dom';
 
+import ScrollToTop from './partial/ScrollToTop';
 import Home from './pages/Home';
+import Details from './pages/Details';
 import Party from './pages/Party';
 
 const useStyles = makeStyles((theme) => ({
@@ -52,11 +54,13 @@ export default function App() {
 
   return(
     <Router>
+      <ScrollToTop />
       <div className={classes.app}>
         <div className={classes.content_holder}>
         <Switch>
           <Route exact path="/" component={ Home } />
           <Route path="/party" component={ Party } />
+          <Route path="/details/:name" component={ Details } />
         </Switch>
         </div>
         <BottomNavigation 

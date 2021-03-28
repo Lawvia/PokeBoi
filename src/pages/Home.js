@@ -1,12 +1,11 @@
-import React from 'react';
+import React, { useContext, useEffect } from 'react';
+import { PokemonContext } from '../partial/PokemonContext';
 import { fade, makeStyles } from '@material-ui/core/styles';
-import { Typography } from '@material-ui/core';
+import { Typography, CardActionArea  } from '@material-ui/core';
 import { gql, useQuery } from '@apollo/client';
 import Card from '@material-ui/core/Card';
-import CardActions from '@material-ui/core/CardActions';
 import CardContent from '@material-ui/core/CardContent';
 import CardMedia from '@material-ui/core/CardMedia';
-import Button from '@material-ui/core/Button';
 import Grid from '@material-ui/core/Grid';
 
 import PropTypes from 'prop-types';
@@ -21,6 +20,8 @@ import SearchIcon from '@material-ui/icons/Search';
 import CssBaseline from '@material-ui/core/CssBaseline';
 import useScrollTrigger from '@material-ui/core/useScrollTrigger';
 import Slide from '@material-ui/core/Slide';
+
+import { Link } from 'react-router-dom';
 
 const GET_POKEMONS = gql`
   query pokemons($limit: Int, $offset: Int) {
@@ -40,7 +41,7 @@ const GET_POKEMONS = gql`
 `;
 
 const gqlVariables = {
-  limit: 50,
+  limit: 151,
   offset: 1,
 };
 
@@ -51,9 +52,6 @@ export const FetchPokemon = () => {
 
   if (loading) console.log('Loading...');
   if (error) console.log(`Error! ${error.message}`);
-
-  console.log('Response from server', data);
-  // console.log('Success! ',data.pokemons.status);
   return data;
 };
 
@@ -61,6 +59,9 @@ const useStyles = makeStyles(theme => ({
   root: {
     flexGrow: 1,
     minWidth: 275,
+  },
+  card: {
+    width: 150
   },
   toolbar: theme.mixins.toolbar,
   title: {
@@ -72,7 +73,10 @@ const useStyles = makeStyles(theme => ({
   },
   content: {
     flexGrow: 1,
-    padding: theme.spacing(3),
+    padding: theme.spacing(2),
+    [theme.breakpoints.up('sm')]: {
+      padding: theme.spacing(3),
+    },
   },
   fullWidth: {
     width: '100%',
@@ -144,7 +148,10 @@ HideOnScroll.propTypes = {
 
 function Home(props) {
   const classes = useStyles();
+  // const { pokemons, addPokemons } = useContext(PokemonContext);
+  // console.log("list ", pokemons)
   var objPoke = FetchPokemon();
+ 
   var isAvail = false;
 
   if (objPoke) {
@@ -156,20 +163,17 @@ function Home(props) {
   return (
     <div className={classes.root}>
       <main className={classes.fullWidth}>
-      {/* <div className={classes.title}>
-        <Typography variant='h6'>Pokde<b>Dex</b></Typography>
-      </div> */}
       <CssBaseline />
       <HideOnScroll {...props}>
         <AppBar style={{ background: '#1abc9c' }}>
           <Toolbar>
-            <Typography className={classes.title} variant="h6">Pokde<b>Dex</b></Typography>
+            <Typography className={classes.title} variant="h6">Poke<b>Pedia</b></Typography>
             <div className={classes.search}>
               <div className={classes.searchIcon}>
                 <SearchIcon />
               </div>
               <InputBase
-                placeholder="Search…"
+                placeholder="Search for Pokémon"
                 classes={{
                   root: classes.inputRoot,
                   input: classes.inputInput,
@@ -181,35 +185,28 @@ function Home(props) {
         </AppBar>
       </HideOnScroll>
       <Toolbar />
+
+      {/* content */}
       <div className={classes.content}>
-        {/* <Typography paragraph>
-          Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nunc maximus,
-          nulla ut commodo sagittis, sapien dui mattis dui, non pulvinar lorem
-          felis nec erat
-        </Typography> */}
         {isAvail ? (
           <Grid container className={classes.root} spacing={2}>
           <Grid item xs={12}>
             <Grid container justify="center" spacing={2}>
               {objPoke.pokemons.results.map((value, index) => (
                 <Grid key={value.name} item>
-                  <Card className={classes.root} variant="outlined">
-                    <CardMedia
-                      className={classes.media}
-                      image={value.image}
-                      title={value.name}
-                    />
-                    <CardContent>
-                      <Typography variant="h5" component="h2">
-                       {value.name}
-                      </Typography>
-                      <Typography className={classes.pos} color="textSecondary">
-                        adjective
-                      </Typography>
-                    </CardContent>
-                    <CardActions>
-                      <Button size="small">Learn More</Button>
-                    </CardActions>
+                  <Card className={classes.card} variant="outlined">
+                    <CardActionArea component={Link} to={"/details/"+value.name}> 
+                      <CardMedia
+                        className={classes.media}
+                        image={value.image}
+                        title={value.name}
+                      />
+                      <CardContent style={{ background: '#f2f3f4' }}>
+                        <Typography color="textSecondary" align="center">
+                        {value.name}
+                        </Typography>
+                      </CardContent>
+                    </CardActionArea>
                   </Card>
                 </Grid>
               ))}
