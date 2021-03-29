@@ -3,12 +3,14 @@ import { makeStyles } from '@material-ui/core/styles';
 import { Typography } from '@material-ui/core';
 import { PokemonContext } from '../partial/PokemonContext';
 
+import IconButton from '@material-ui/core/IconButton';
 import Card from '@material-ui/core/Card';
 import CardContent from '@material-ui/core/CardContent';
 import CardMedia from '@material-ui/core/CardMedia';
 import Grid from '@material-ui/core/Grid';
 import CardActions from '@material-ui/core/CardActions';
-import Button from '@material-ui/core/Button';
+import Chip from '@material-ui/core/Chip';
+import DeleteIcon from '@material-ui/icons/Delete';
 
 const useStyles = makeStyles(theme => ({
   root: {
@@ -17,6 +19,14 @@ const useStyles = makeStyles(theme => ({
   },
   card: {
     width: 150
+  },
+  chip: {
+    display: "flex",
+    flexWrap: "wrap"
+  },
+  menuButton: {
+    marginLeft: 'auto',
+    margin: -12
   },
   toolbar: theme.mixins.toolbar,
   title: {
@@ -53,25 +63,19 @@ function Party() {
         <Typography variant='h6'><b>Party</b></Typography>
       </div>
       <div className={classes.content}>
-        {/* {user ? (
-          <h6>ok</h6>
-          {user.map((value, index) => (
-            <Typography paragraph>
-            
-            </Typography>
-          ))}
-        ):(
-          <Typography paragraph>
-            Go roam the grass!
-          </Typography>
-        )} */}
         {user ? (
           <Grid container className={classes.root} spacing={2}>
           <Grid item xs={12}>
             <Grid container justify="center" spacing={2}>
               {user.map((value, index) => (
                 <Grid key={value.nickname} item>
-                  <Card className={classes.card} variant="outlined">
+                  <Card className={classes.card} variant="outlined">                
+                      <CardActions>
+                        <IconButton edge="start" className={classes.menuButton} color="inherit" aria-label="delete">
+                          <DeleteIcon color="action" />
+                        </IconButton>
+                      
+                      </CardActions>
                       <CardMedia
                         className={classes.media}
                         image={value.image}
@@ -79,12 +83,10 @@ function Party() {
                       />
                       <CardContent style={{ background: '#f2f3f4' }}>
                         <Typography color="textSecondary" align="center">
-                        {value.name}
+                        {value.nickname}
                         </Typography>
+                        <Chip variant="outlined" size="small" className={classes.chip} label={value.name} clickable />
                       </CardContent>
-                      <CardActions>
-                        <Button size="small">Release</Button>
-                      </CardActions>
                   </Card>
                 </Grid>
               ))}
