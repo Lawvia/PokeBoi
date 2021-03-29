@@ -242,7 +242,7 @@ function Details() {
 
   const handleToParty = () => {
     addPokemon(arrPoke);
-    setMessage(""+arrPoke.nickname+" have join the party!");
+    setMessage(""+arrPoke.nickname+" have joined the party!");
     setSnack("info");
     setOpen(true);
 

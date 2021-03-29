@@ -63,7 +63,7 @@ function Party() {
         <Typography variant='h6'><b>Party</b></Typography>
       </div>
       <div className={classes.content}>
-        {user ? (
+        {user.length > 0 ? (
           <Grid container className={classes.root} spacing={2}>
           <Grid item xs={12}>
             <Grid container justify="center" spacing={2}>
