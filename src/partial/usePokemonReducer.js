@@ -31,7 +31,10 @@ const addPokemons = (pokemons, state) => ({
 const pokemonReducer = (state, action) => {
   switch (action.type) {
     case CAPTURE:
-      // store.clearAll();
+      return capturePokemon(action.pokemon, state);
+    case RELEASE:
+      return releasePokemon(action.pokemon, state);
+    case ADD_POKEMON:
       console.log("capture", action, state)
       var user = store.get(KEY_USER_DATA);
       console.log("data session ",user);
@@ -44,10 +47,6 @@ const pokemonReducer = (state, action) => {
         user.push(action.pokemon)
         store.set(KEY_USER_DATA, user);
       }
-      return capturePokemon(action.pokemon, state);
-    case RELEASE:
-      return releasePokemon(action.pokemon, state);
-    case ADD_POKEMON:
       return addPokemon(action.pokemon, state);
     case ADD_POKEMONS:
       return addPokemons(action.pokemons, state);

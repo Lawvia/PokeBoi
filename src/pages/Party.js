@@ -1,9 +1,7 @@
 import React from 'react';
-import store from 'store';
 import { makeStyles } from '@material-ui/core/styles';
 import { Typography } from '@material-ui/core';
 import { PokemonContext } from '../partial/PokemonContext';
-import { KEY_USER_DATA } from '../partial/actions';
 
 import Card from '@material-ui/core/Card';
 import CardContent from '@material-ui/core/CardContent';
@@ -29,6 +27,9 @@ const useStyles = makeStyles(theme => ({
   content: {
     flexGrow: 1,
     padding: theme.spacing(3),
+    [theme.breakpoints.up('sm')]: {
+      padding: theme.spacing(3),
+    },
   },
   fullWidth: {
     width: '100%',
@@ -40,10 +41,9 @@ const useStyles = makeStyles(theme => ({
 
 function Party() {
   const classes = useStyles();
-  const { release, capturedPokemons } = React.useContext(PokemonContext);
+  const { release, pokemons } = React.useContext(PokemonContext);
 
-  console.log(capturedPokemons)
-  var user = store.get(KEY_USER_DATA)
+  var user = pokemons;
   console.log("data party ",user);
 
   return (

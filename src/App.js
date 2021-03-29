@@ -1,5 +1,7 @@
 import React from 'react';
-
+import store from 'store';
+import { PokemonContext } from './partial/PokemonContext';
+import { KEY_USER_DATA } from './partial/actions';
 import { makeStyles } from '@material-ui/core/styles';
 import BottomNavigation from '@material-ui/core/BottomNavigation';
 import BottomNavigationAction from '@material-ui/core/BottomNavigationAction';
@@ -45,6 +47,16 @@ export default function App() {
   console.log("aaa",pathname)
   const classes = useStyles();
   const [value, setValue] = React.useState(pathname);
+  const { addPokemons } = React.useContext(PokemonContext);
+  //get local data from the user
+  var user = store.get(KEY_USER_DATA)
+
+  React.useEffect(() => {
+    console.log("called once")
+    if (!user) user = [];
+    addPokemons(user); //add local data to context
+  }, []);
+
 
   const handleChange = (event, newValue) => {
     setValue(newValue);
