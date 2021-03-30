@@ -157,10 +157,24 @@ function Home(props) {
   var objPoke = FetchPokemon();
  
   var isAvail = false;
+  // var fullPoke;
 
   if (objPoke) {
     isAvail = true;
+    // fullPoke = objPoke.pokemons.results;
   }
+
+  // function handleChange(event){
+  //   const {value} = event.target;
+  //   console.log("aadad ", value)
+  //   fullPoke = objPoke.pokemons.results
+  //   if (fullPoke){
+  //       fullPoke = fullPoke.filter(items=>{
+  //       return items.name.toLowerCase().includes(value.toLowerCase());
+  //     })
+  //     console.log("result", fullPoke);
+  //   }
+  // }
 
   console.log("di home")
 

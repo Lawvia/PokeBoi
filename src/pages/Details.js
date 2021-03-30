@@ -195,6 +195,7 @@ function Details() {
 
   const handleButtonCatch = () => {
     if (!loading) {
+      setOpen(false);
       setSuccess(false);
       setLoading(true);
       timer.current = window.setTimeout(() => {

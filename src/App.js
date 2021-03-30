@@ -8,7 +8,7 @@ import BottomNavigationAction from '@material-ui/core/BottomNavigationAction';
 import RestoreIcon from '@material-ui/icons/Book';
 import FavoriteIcon from '@material-ui/icons/Favorite';
 
-import { BrowserRouter as Router, Route, Switch, Link } from 'react-router-dom';
+import { HashRouter as Router, Route, Switch, Link } from 'react-router-dom';
 
 import ScrollToTop from './partial/ScrollToTop';
 import Home from './pages/Home';
