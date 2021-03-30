@@ -12,6 +12,8 @@ import PropTypes from 'prop-types';
 import AppBar from '@material-ui/core/AppBar';
 import Toolbar from '@material-ui/core/Toolbar';
 
+import Chip from '@material-ui/core/Chip';
+
 //search compo
 import InputBase from '@material-ui/core/InputBase';
 import SearchIcon from '@material-ui/icons/Search';
@@ -70,6 +72,9 @@ const useStyles = makeStyles(theme => ({
     [theme.breakpoints.up('sm')]: {
       display: 'block',
     },
+  },
+  owned: {
+    margin: theme.spacing(1)
   },
   content: {
     flexGrow: 1,
@@ -148,8 +153,7 @@ HideOnScroll.propTypes = {
 
 function Home(props) {
   const classes = useStyles();
-  // const { pokemons, addPokemons } = useContext(PokemonContext);
-  // console.log("list ", pokemons)
+  const { pokemons } = useContext(PokemonContext);
   var objPoke = FetchPokemon();
  
   var isAvail = false;
@@ -188,9 +192,14 @@ function Home(props) {
 
       {/* content */}
       <div className={classes.content}>
+        
         {isAvail ? (
           <Grid container className={classes.root} spacing={2}>
           <Grid item xs={12}>
+          {/* <Typography className={classes.owned} variant="body1" color="textSecondary" align="right">Owned: 12</Typography> */}
+            <Grid container justify = "flex-end">
+              <Chip variant="outlined" size="small" className={classes.owned} label={"Owned: "+pokemons.length} clickable />
+            </Grid>
             <Grid container justify="center" spacing={2}>
               {objPoke.pokemons.results.map((value, index) => (
                 <Grid key={value.name} item>

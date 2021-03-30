@@ -22,6 +22,9 @@ import DialogContent from '@material-ui/core/DialogContent';
 import DialogContentText from '@material-ui/core/DialogContentText';
 import DialogTitle from '@material-ui/core/DialogTitle';
 
+import AppBar from '@material-ui/core/AppBar';
+import Toolbar from '@material-ui/core/Toolbar';
+
 function Alert(props) {
   return <MuiAlert elevation={6} variant="filled" {...props} />;
 }
@@ -34,6 +37,9 @@ const useStyles = makeStyles(theme => ({
   card: {
     width: 150
   },
+  owned: {
+    margin: theme.spacing(1)
+  },
   chip: {
     display: "flex",
     flexWrap: "wrap"
@@ -45,8 +51,6 @@ const useStyles = makeStyles(theme => ({
   toolbar: theme.mixins.toolbar,
   title: {
     flexGrow: 1,
-    backgroundColor: theme.palette.background.default,
-    padding: theme.spacing(3),
   },
   content: {
     flexGrow: 1,
@@ -103,9 +107,12 @@ function Party() {
   return (
     <div className={classes.root}>
       <main className={classes.fullWidth}>
-      <div className={classes.title}>
-        <Typography variant='h6'><b>Party</b></Typography>
-      </div>
+      <AppBar style={{ background: '#1abc9c' }}>
+          <Toolbar>
+            <Typography className={classes.title} variant="h6">Poke<b>Pedia</b> - Party</Typography>
+          </Toolbar>
+      </AppBar>
+      <Toolbar />
       <div className={classes.content}>
         <Snackbar 
           open={openSb} 
@@ -140,6 +147,9 @@ function Party() {
         {user.length > 0 ? (
           <Grid container className={classes.root} spacing={2}>
           <Grid item xs={12}>
+            <Grid container justify = "flex-end">
+              <Chip variant="outlined" size="small" className={classes.owned} label={"Owned: "+pokemons.length} clickable />
+            </Grid>
             <Grid container justify="center" spacing={2}>
               {user.map((value, index) => (
                 <Grid key={value.nickname} item>
