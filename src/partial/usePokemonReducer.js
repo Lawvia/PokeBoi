@@ -1,22 +1,13 @@
 import { useReducer } from 'react';
 import store from 'store';
-import { KEY_USER_DATA, CAPTURE, RELEASE, ADD_POKEMON, ADD_POKEMONS } from './actions';
-
-const getCapturedPokemons = (capturedPokemons, releasedPokemon) =>
-  capturedPokemons.filter(pokemon => pokemon !== releasedPokemon)
+import { KEY_USER_DATA, RELEASE, ADD_POKEMON, ADD_POKEMONS } from './actions';
 
 const releasePokemon = (releasedPokemon, state) => ({
-  pokemons: [...state.pokemons, releasedPokemon],
-  capturedPokemons: getCapturedPokemons(state.capturedPokemons, releasedPokemon)
+  pokemons: getPokemonsList(state.pokemons, releasedPokemon),
 });
 
 const getPokemonsList = (pokemons, capturedPokemon) =>
   pokemons.filter(pokemon => pokemon !== capturedPokemon)
-
-const capturePokemon = (pokemon, state) => ({
-  pokemons: getPokemonsList(state.pokemons, pokemon),
-  capturedPokemons: [...state.capturedPokemons, pokemon]
-});
 
 const addPokemon = (pokemon, state) => ({
   pokemons: [...state.pokemons, pokemon],
@@ -30,18 +21,18 @@ const addPokemons = (pokemons, state) => ({
 
 const pokemonReducer = (state, action) => {
   switch (action.type) {
-    case CAPTURE:
-      return capturePokemon(action.pokemon, state);
     case RELEASE:
+      var user = store.get(KEY_USER_DATA);
+      user = user.filter(function(el){
+        return el.nickname !== action.pokemon.nickname;
+      });
+      store.set(KEY_USER_DATA, user);
       return releasePokemon(action.pokemon, state);
     case ADD_POKEMON:
-      console.log("capture", action, state)
       var user = store.get(KEY_USER_DATA);
-      console.log("data session ",user);
       if (!user){ //first time user
         var arr = [];
         arr.push(action.pokemon);
-        console.log("uwa", arr)
         store.set(KEY_USER_DATA, arr);
       }else{
         user.push(action.pokemon)

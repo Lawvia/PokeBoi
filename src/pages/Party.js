@@ -12,6 +12,20 @@ import CardActions from '@material-ui/core/CardActions';
 import Chip from '@material-ui/core/Chip';
 import DeleteIcon from '@material-ui/icons/Delete';
 
+import Snackbar from '@material-ui/core/Snackbar';
+import MuiAlert from '@material-ui/lab/Alert';
+
+import Button from '@material-ui/core/Button';
+import Dialog from '@material-ui/core/Dialog';
+import DialogActions from '@material-ui/core/DialogActions';
+import DialogContent from '@material-ui/core/DialogContent';
+import DialogContentText from '@material-ui/core/DialogContentText';
+import DialogTitle from '@material-ui/core/DialogTitle';
+
+function Alert(props) {
+  return <MuiAlert elevation={6} variant="filled" {...props} />;
+}
+
 const useStyles = makeStyles(theme => ({
   root: {
     flexGrow: 1,
@@ -36,7 +50,7 @@ const useStyles = makeStyles(theme => ({
   },
   content: {
     flexGrow: 1,
-    padding: theme.spacing(3),
+    padding: theme.spacing(2),
     [theme.breakpoints.up('sm')]: {
       padding: theme.spacing(3),
     },
@@ -52,9 +66,39 @@ const useStyles = makeStyles(theme => ({
 function Party() {
   const classes = useStyles();
   const { release, pokemons } = React.useContext(PokemonContext);
+  const [open, setOpen] = React.useState(false);
+  const [deletePoke, setDelete] = React.useState(0);
+  const [poorOne, setPoor] = React.useState("");
+  const [openSb, setOpenSb] = React.useState(false);
 
   var user = pokemons;
   console.log("data party ",user);
+
+  const handleClose = () => {
+    setOpen(false);
+  };
+
+  const handleRelease = (param) => {
+    //release the pokemon after throw confirmation dialog
+    setPoor(user[param].nickname);
+    setDelete(param);
+    setOpen(true);
+  }
+
+  const handleRemove = () => {
+    setOpen(false);
+    setOpenSb(true);
+    console.log("ok remove",user[deletePoke]);
+    release(user[deletePoke]);
+  }
+
+  const handleCloseSb = (event, reason) => {
+    if (reason === 'clickaway') {
+      return;
+    }
+
+    setOpenSb(false);
+  };
 
   return (
     <div className={classes.root}>
@@ -63,6 +107,36 @@ function Party() {
         <Typography variant='h6'><b>Party</b></Typography>
       </div>
       <div className={classes.content}>
+        <Snackbar 
+          open={openSb} 
+          autoHideDuration={6000} 
+          onClose={handleCloseSb}
+          anchorOrigin={{ vertical: 'top', horizontal: 'center' }}>
+          <Alert onClose={handleCloseSb} severity="info">
+            {poorOne} successfully return to the wild
+          </Alert>
+        </Snackbar>
+        <Dialog
+          open={open}
+          onClose={handleClose}
+          aria-labelledby="alert-dialog-title"
+          aria-describedby="alert-dialog-description"
+        >
+          <DialogTitle id="alert-dialog-title">{"Release "+poorOne+" into the wild?"}</DialogTitle>
+          <DialogContent>
+            <DialogContentText id="alert-dialog-description">
+              Thank you for keeping and took care {poorOne} , confirm to remove her from party
+            </DialogContentText>
+          </DialogContent>
+          <DialogActions>
+            <Button onClick={handleClose} color="secondary">
+              Cancel
+            </Button>
+            <Button onClick={handleRemove} color="default" autoFocus>
+              GOO
+            </Button>
+          </DialogActions>
+        </Dialog>
         {user.length > 0 ? (
           <Grid container className={classes.root} spacing={2}>
           <Grid item xs={12}>
@@ -71,7 +145,7 @@ function Party() {
                 <Grid key={value.nickname} item>
                   <Card className={classes.card} variant="outlined">                
                       <CardActions>
-                        <IconButton edge="start" className={classes.menuButton} color="inherit" aria-label="delete">
+                        <IconButton onClick={() => handleRelease(index)} edge="start" className={classes.menuButton} color="inherit" aria-label="delete">
                           <DeleteIcon color="action" />
                         </IconButton>
                       

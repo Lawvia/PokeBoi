@@ -143,6 +143,7 @@ function Details() {
   const [eligible, setEligible] = React.useState(true);
   const [errorNick, setErrNick] = React.useState(false);
   const [helperError, setHelperError] = React.useState("");
+  const [nickPoke, setNickname] = React.useState("");
 
   const handleClose = (event, reason) => {
     if (reason === 'clickaway') {
@@ -234,13 +235,15 @@ function Details() {
       setErrNick(true)
       setHelperError("Nickname already in use")
     }else{
-      arrPoke.nickname = el;
+      // arrPoke.nickname = el;
+      setNickname(el);
       setEligible(false)
     }
     console.log(el, check, arrPoke);
   }
 
   const handleToParty = () => {
+    arrPoke.nickname = nickPoke;
     addPokemon(arrPoke);
     setMessage(""+arrPoke.nickname+" have joined the party!");
     setSnack("info");
