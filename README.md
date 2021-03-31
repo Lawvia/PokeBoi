@@ -1,6 +1,20 @@
-# Getting Started with Create React App
+# PokePedia
+A React App project to apply
+- React Hooks, Context
+- SPA
+- GraphQl using Appolo
+- PWA
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+packed into a minimalist Pokedex.
+Live Demo: https://dex.arsendvs.com
+
+![screenshots of app](https://imgur.com/NNoBKao.png)
+
+Improvements to made:
+- Adjust a proper PWA
+- Adding webpack config
+- BrowserRouter, and optimization
+- More Pokemons..
 
 ## Available Scripts
 
