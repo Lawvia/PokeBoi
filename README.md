@@ -5,7 +5,7 @@ A React App project to apply
 - GraphQl using Appolo
 - PWA
 
-packed into a minimalist Pokedex.
+packed into a minimalist Pokedex that offer up to 151 entries as Kanto's regional Pokédex. You can also catch em all and keep em in your party!
 
 Live Demo: https://dex.arsendvs.com
 
