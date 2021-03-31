@@ -6,6 +6,7 @@ A React App project to apply
 - PWA
 
 packed into a minimalist Pokedex.
+
 Live Demo: https://dex.arsendvs.com
 
 ![screenshots of app](https://imgur.com/NNoBKao.png)
