@@ -76,7 +76,6 @@ function Party() {
   const [openSb, setOpenSb] = React.useState(false);
 
   var user = pokemons;
-  console.log("data party ",user);
 
   const handleClose = () => {
     setOpen(false);
@@ -92,7 +91,6 @@ function Party() {
   const handleRemove = () => {
     setOpen(false);
     setOpenSb(true);
-    console.log("ok remove",user[deletePoke]);
     release(user[deletePoke]);
   }
 

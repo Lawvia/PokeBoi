@@ -176,8 +176,6 @@ function Home(props) {
   //   }
   // }
 
-  console.log("di home")
-
   return (
     <div className={classes.root}>
       <main className={classes.fullWidth}>

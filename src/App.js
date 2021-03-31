@@ -44,7 +44,6 @@ const useStyles = makeStyles((theme) => ({
 
 export default function App() {
   const pathname = window.location.pathname;
-  console.log("aaa",pathname)
   const classes = useStyles();
   const [value, setValue] = React.useState(pathname);
   const { addPokemons } = React.useContext(PokemonContext);
@@ -60,8 +59,6 @@ export default function App() {
 
   const handleChange = (event, newValue) => {
     setValue(newValue);
-
-    console.log("ok change ", newValue)
   };
 
   return(

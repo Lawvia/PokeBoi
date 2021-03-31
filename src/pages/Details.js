@@ -73,8 +73,6 @@ export const FetchPokemonDetails = (gqlVariables) => {
   if (loading) console.log('Loading...');
   if (error) console.log(`Error! ${error.message}`);
 
-  console.log('Response details ', data);
-  // console.log('Success! ',data.pokemons.status);
   return data;
 };
 
@@ -191,8 +189,6 @@ function Details() {
 
   var upperCase = name.charAt(0).toUpperCase() + name.slice(1)
 
-  console.log("di details", upperCase)
-
   const handleButtonCatch = () => {
     if (!loading) {
       setOpen(false);
@@ -202,7 +198,6 @@ function Details() {
         //50% chance of success, attempting catch
         // "Oops.. "+name+" was terified and flee!"
         var rand = Math.floor(Math.random() * 10);
-        console.log("luck ",rand)
         if (rand > 4){
           //success, open dialog set name
           setMessage("Gotcha! "+name+" was caught!");
