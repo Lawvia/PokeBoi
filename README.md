@@ -17,6 +17,7 @@ This app using:
 - Store js (https://github.com/marcuswestin/store.js)
 
 Improvements to made:
+- A working search
 - Adjust a proper PWA
 - Adding webpack config
 - BrowserRouter, and optimization
