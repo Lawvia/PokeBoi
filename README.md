@@ -11,6 +11,11 @@ Live Demo: https://dex.arsendvs.com
 
 ![screenshots of app](https://imgur.com/NNoBKao.png)
 
+This app using:
+- Material-ui (https://material-ui.com/)
+- GraphQl PokeApi (https://graphql-pokeapi.vercel.app/)
+- Store js (https://github.com/marcuswestin/store.js)
+
 Improvements to made:
 - Adjust a proper PWA
 - Adding webpack config
