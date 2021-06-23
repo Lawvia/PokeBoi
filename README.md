@@ -10,6 +10,9 @@ packed into a minimalist Pokedex that offer up to 151 entries as Kanto's regiona
 Live Demo: https://dex.arsendvs.com
 
 ![screenshots of app](https://imgur.com/NNoBKao.png)
+<br><br>
+Lighthouse audit:<br>
+![lighthouse_audit](https://imgur.com/YareUAv.png)
 
 This app using:
 - Material-ui (https://material-ui.com/)
