@@ -1,6 +1,6 @@
 {
   "short_name": "PokeBoi",
-  "name": "Your Minimalist Pokedex",
+  "name": "Your alakadar Pokedex",
   "icons": [
     {
       "src": "favicon.ico",
@@ -20,6 +20,7 @@
   ],
   "start_url": ".",
   "display": "standalone",
-  "theme_color": "#000000",
-  "background_color": "#ffffff"
+  "description": "Packed into a minimalist Pokedex that offer up to 151 entries as Kanto's regional Pokédex. You can also catch em all and keep em in your party!",
+  "theme_color": "#1abc9c",
+  "background_color": "#1abc9c"
 }
